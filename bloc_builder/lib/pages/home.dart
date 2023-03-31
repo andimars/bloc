@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Flutter Bloc - Bloc Builder',
+            'Flutter Bloc - Bloc Listener',
             style: TextStyle(fontSize: 20),
           ),
         ),
@@ -20,30 +20,32 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            BlocBuilder<Counter, int>(
-                buildWhen: (previous, current) {
-                  if (current % 2 == 0) {
-                    return true;
-                  } else {
-                    return false;
-                  }
-                },
-                bloc: myCounter,
-                builder: (context, state) {
-                  return Text(
-                    '$state',
-                    style: const TextStyle(fontSize: 50),
-                  );
-                }),
-            // StreamBuilder(
-            //     initialData: myCounter.initData,
-            //     stream: myCounter.stream,
-            //     builder: (context, snapshot) {
-            //       return Text(
-            //         '${snapshot.data}',
-            //         style: const TextStyle(fontSize: 50),
-            //       );
-            //     }),
+            BlocListener<Counter, int>(
+              bloc: myCounter,
+              listener: (context, state) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    duration: Duration(seconds: 1),
+                    content: Text('Ini Snackbar'),
+                  ),
+                );
+              },
+              listenWhen: (previous, current) {
+                if (current == 10) {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
+              child: BlocBuilder<Counter, int>(
+                  bloc: myCounter,
+                  builder: (context, state) {
+                    return Text(
+                      '$state',
+                      style: const TextStyle(fontSize: 50),
+                    );
+                  }),
+            ),
             const SizedBox(
               height: 20,
             ),
