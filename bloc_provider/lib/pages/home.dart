@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               // Widget data counter
-              DataWidget(),
+              const DataWidget(),
               // button +
               Material(
                 color: Colors.blue,

@@ -12,7 +12,7 @@ class DataWidget extends StatelessWidget {
       height: 100,
       width: 200,
       color: Colors.red,
-      child: CenterWidget(),
+      child: const CenterWidget(),
     );
   }
 }
